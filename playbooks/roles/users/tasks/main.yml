@@ -1,0 +1,8 @@
+- name: Include group management tasks
+  include_tasks: groups.yml
+
+- name: Include user management tasks
+  include_tasks: users.yml
+
+- name: Include password management tasks
+  include_tasks: password.yml

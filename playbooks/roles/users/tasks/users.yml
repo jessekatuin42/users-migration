@@ -1,0 +1,16 @@
+- name: Read users from file
+  set_fact:
+    users_list: "{{ lookup('file', users_file).splitlines() }}"
+
+- name: Create users from file (Only UID between 1001 and 1099)
+  ansible.builtin.user:
+    name: "{{ item.split(':')[0] }}"
+    uid: "{{ item.split(':')[2] | int }}"
+    group: "{{ item.split(':')[3] }}"
+    home: "{{ item.split(':')[5] }}"
+    shell: "{{ item.split(':')[6] }}"
+    state: present
+  loop: "{{ users_list }}"
+  when: item.split(':')[2] | int >= 1001 and item.split(':')[2] | int <= 1099
+  loop_control:
+    label: "User: {{ item.split(':')[0] }}"

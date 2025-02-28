@@ -1,0 +1,6 @@
+---
+- name: User Management Playbook
+  hosts: all
+  become: yes
+  roles:
+    - users
